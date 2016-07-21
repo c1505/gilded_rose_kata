@@ -7,10 +7,17 @@ def normal_tick(item)
   item.quality -= 1 if item.sell_in <= -1
 end
 
+def sulfuras_tick(item)
+end
+
 def update_quality(items)
   items.each do |item|
     if item.name == 'NORMAL ITEM'
       normal_tick(item)
+      return item
+    end
+    if item.name == 'Sulfuras, Hand of Ragnaros'
+      sulfuras_tick(item)
       return item
     end
     if item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert'
