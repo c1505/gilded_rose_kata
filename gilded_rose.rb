@@ -32,6 +32,13 @@ def backstage_tick(item)
   item.quality = 50 if item.quality > 50
 end
 
+def conjured_tick(item)
+  item.sell_in -= 1
+  return if item.quality == 0
+  item.quality -= 2
+  item.quality -= 2 if item.sell_in <= -1
+end
+
 def update_quality(items)
   items.each do |item|
     
@@ -44,6 +51,8 @@ def update_quality(items)
       brie_tick(item)
     when 'Backstage passes to a TAFKAL80ETC concert'
       backstage_tick(item)
+    when "Conjured Mana Cake"
+      conjured_tick(item)
     end
     
   end
