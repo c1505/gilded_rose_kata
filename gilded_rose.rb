@@ -1,5 +1,18 @@
+require 'pry'
+
+def normal_tick(item)
+  item.sell_in -= 1
+  return if item.quality == 0
+  item.quality -= 1
+  item.quality -= 1 if item.sell_in <= -1
+end
+
 def update_quality(items)
   items.each do |item|
+    if item.name == 'NORMAL ITEM'
+      normal_tick(item)
+      return item
+    end
     if item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert'
       if item.quality > 0
         if item.name != 'Sulfuras, Hand of Ragnaros'
@@ -10,6 +23,7 @@ def update_quality(items)
       if item.quality < 50
         item.quality += 1
         if item.name == 'Backstage passes to a TAFKAL80ETC concert'
+          
           if item.sell_in < 11
             if item.quality < 50
               item.quality += 1
@@ -23,9 +37,11 @@ def update_quality(items)
         end
       end
     end
+    
     if item.name != 'Sulfuras, Hand of Ragnaros'
       item.sell_in -= 1
     end
+    
     if item.sell_in < 0
       if item.name != "Aged Brie"
         if item.name != 'Backstage passes to a TAFKAL80ETC concert'
@@ -43,8 +59,17 @@ def update_quality(items)
         end
       end
     end
+    
   end
 end
+
+# dealing with
+# name
+# sell_in
+# quality
+
+# is there 
+
 
 # DO NOT CHANGE THINGS BELOW -----------------------------------------
 
