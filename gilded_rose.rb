@@ -18,20 +18,38 @@ def brie_tick(item)
   item.quality = 50 if item.quality > 50
 end
 
+def backstage_tick(item)
+  if item.sell_in <= 0
+    item.quality = 0
+  elsif item.sell_in <= 5
+    item.quality += 3
+  elsif item.sell_in <= 10
+    item.quality += 2
+  else
+    item.quality += 1
+  end
+  item.sell_in -= 1
+  item.quality = 50 if item.quality > 50
+end
+
 def update_quality(items)
   items.each do |item|
-    if item.name == 'NORMAL ITEM'
+    
+    case item.name
+    when 'NORMAL ITEM'
       normal_tick(item)
       return item
-    end
-    if item.name == 'Sulfuras, Hand of Ragnaros'
+    when 'Sulfuras, Hand of Ragnaros'
       sulfuras_tick(item)
       return item
-    end
-    if item.name == 'Aged Brie'
+    when 'Aged Brie'
       brie_tick(item)
       return item
+    when 'Backstage passes to a TAFKAL80ETC concert'
+      backstage_tick(item)
+      return item
     end
+    
     if item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert'
       if item.quality > 0
         if item.name != 'Sulfuras, Hand of Ragnaros'
